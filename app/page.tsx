@@ -2,7 +2,7 @@
 
 import { useMutation, useQuery } from "convex/react";
 import { api } from "../convex/_generated/api";
-import ConvexClientProvider from "@/components/ConvexClientProvider";
+// Remove the unused import
 import Link from "next/link";
 
 export default function Home() {
