@@ -2,13 +2,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { google } from 'googleapis';
 import { Readable } from 'stream';
-// Remove unused imports
-// import { writeFile } from 'fs/promises';
-// import path from 'path';
-// import { mkdir } from 'fs/promises';
+import { ConvexHttpClient } from "convex/browser";
+import { api } from "@/convex/_generated/api";
 
 // Google Drive folder ID where prescriptions will be uploaded
 const DRIVE_FOLDER_ID = '1nVNXJTCdl3DDXZ8BY4o_eMbUaf8W-NIy';
+
+// Set up Convex client
+const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
 
 export async function POST(req: NextRequest) {
   try {
@@ -38,6 +39,24 @@ export async function POST(req: NextRequest) {
     try {
       // Upload directly to Google Drive
       const driveResult = await uploadToDrive(buffer, filename, file.type);
+      
+      // Update Convex if orderId is provided
+      if (orderId) {
+        try {
+          // Find the order by orderId and update its prescription information
+          const updateResult = await convex.mutation(api.orders.updateOrderPrescription, {
+            orderId,
+            prescriptionUrl: driveResult.fileUrl,
+            prescriptionFileId: driveResult.fileId,
+          });
+          
+          console.log("Updated prescription info in Convex DB:", updateResult);
+        } catch (convexError) {
+          console.error("Error updating prescription in Convex:", convexError);
+          // Continue anyway to ensure the prescription is still accessible
+        }
+      }
+      
       return NextResponse.json({ 
         success: true, 
         fileUrl: driveResult.fileUrl,
@@ -59,6 +78,9 @@ export async function POST(req: NextRequest) {
   }
 }
 
+// File: app/api/upload-prescription/route.ts
+// Authentication part only
+
 async function uploadToDrive(buffer: Buffer, filename: string, mimeType: string) {
   try {
     // Check if environment variables are set
@@ -67,16 +89,26 @@ async function uploadToDrive(buffer: Buffer, filename: string, mimeType: string)
       throw new Error('Missing Google API credentials');
     }
     
-    // Set up authentication with Google Drive
-    const auth = new google.auth.GoogleAuth({
-      credentials: {
-        client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
-        private_key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
-      },
-      scopes: ['https://www.googleapis.com/auth/drive'],
-    });
+    // Clean up the private key
+    let privateKey = process.env.GOOGLE_PRIVATE_KEY || '';
+    privateKey = privateKey.replace(/\\n/g, '\n');
     
-    const drive = google.drive({ version: 'v3', auth });
+    // Use JWT client with properly typed auth
+    const auth = new google.auth.JWT(
+      process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
+      undefined,
+      privateKey,
+      ['https://www.googleapis.com/auth/drive']
+    );
+
+    // Pre-authorize before using
+    await auth.authorize();
+    
+    // Create drive client with the JWT client
+    const drive = google.drive({ 
+      version: 'v3', 
+      auth
+    });
     
     // Log for debugging
     console.log('Attempting to upload file:', filename);
@@ -88,87 +120,55 @@ async function uploadToDrive(buffer: Buffer, filename: string, mimeType: string)
     readable.push(buffer);
     readable.push(null);
     
-    // Try a direct upload approach
-    try {
-      // Upload the file to Google Drive root first
-      const response = await drive.files.create({
-        requestBody: {
-          name: filename,
-          mimeType: mimeType || 'application/octet-stream',
-        },
-        media: {
-          mimeType: mimeType || 'application/octet-stream',
-          body: readable,
-        },
-        fields: 'id,name,webViewLink',
-      });
-      
-      console.log('File created with ID:', response.data.id);
-      
-      if (!response.data.id) {
-        throw new Error('Failed to upload file to Google Drive');
-      }
-      
-      // Move the file to the target folder
-      await drive.files.update({
-        fileId: response.data.id,
-        requestBody: {
-          parents: [DRIVE_FOLDER_ID],
-        },
-      });
-      
-      console.log('File moved to target folder');
-      
-      // Make the file publicly accessible
-      await drive.permissions.create({
-        fileId: response.data.id,
-        requestBody: {
-          role: 'reader',
-          type: 'anyone',
-        },
-      });
-      
-      console.log('File permissions updated to public');
-      
-      // Get the file's web view link
-      const fileData = await drive.files.get({
-        fileId: response.data.id,
-        fields: 'webViewLink',
-      });
-      
-      const fileUrl = fileData.data.webViewLink || '';
-      console.log('File URL:', fileUrl);
-      
-      return {
-        fileUrl: fileUrl,
-        fileId: response.data.id
-      };
-    } catch (uploadError) {
-      console.error('Error in direct upload:', uploadError);
-      throw uploadError;
+    // Direct upload to the target folder
+    const response = await drive.files.create({
+      requestBody: {
+        name: filename,
+        mimeType: mimeType || 'application/octet-stream',
+        parents: [DRIVE_FOLDER_ID], // Set parent folder directly here
+      },
+      media: {
+        mimeType: mimeType || 'application/octet-stream',
+        body: readable,
+      },
+      fields: 'id,name,webViewLink',
+    });
+    
+    console.log('File created with ID:', response.data.id);
+    
+    if (!response.data.id) {
+      throw new Error('Failed to upload file to Google Drive');
     }
+    
+    // Make the file publicly accessible
+    await drive.permissions.create({
+      fileId: response.data.id,
+      requestBody: {
+        role: 'reader',
+        type: 'anyone',
+      },
+    });
+    
+    console.log('File permissions updated to public');
+    
+    // Get the file's web view link
+    const fileData = await drive.files.get({
+      fileId: response.data.id,
+      fields: 'webViewLink',
+    });
+    
+    const fileUrl = fileData.data.webViewLink || '';
+    console.log('File URL:', fileUrl);
+    
+    return {
+      fileUrl: fileUrl,
+      fileId: response.data.id
+    };
   } catch (error) {
     console.error('Detailed Drive API error:', error);
     throw error;
   }
 }
-
-// Either remove the unused function or add a comment to explain why it's kept
-// Commenting out the unused function:
-/*
-async function saveLocally(buffer: Buffer, filename: string) {
-  // Ensure the upload directory exists
-  const uploadDir = path.join(process.cwd(), 'public', 'uploads', 'prescriptions');
-  await mkdir(uploadDir, { recursive: true });
-  
-  // Write the file to the server
-  const filePath = path.join(uploadDir, filename);
-  await writeFile(filePath, buffer);
-  
-  // Return the URL to the uploaded file
-  return `/uploads/prescriptions/${filename}`;
-}
-*/
 
 export const config = {
   api: {

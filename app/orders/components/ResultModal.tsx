@@ -1,7 +1,6 @@
 "use client";
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, Copy, X, AlertCircle } from "lucide-react";
+import { CheckCircle, X, AlertCircle } from "lucide-react";
 
 interface ResultModalProps {
   success: boolean;
@@ -9,34 +8,9 @@ interface ResultModalProps {
   onCloseAction: () => void;
 }
 
-export default function ResultModal({ success, orderId, onCloseAction }: ResultModalProps) {
-  const [copied, setCopied] = useState(false);
-  
-  const copyToClipboard = async () => {
-    if (orderId) {
-      try {
-        await navigator.clipboard.writeText(orderId);
-        setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
-      } catch (error) {
-        console.error('Failed to copy: ', error);
-        // Fallback method for copying
-        const textArea = document.createElement('textarea');
-        textArea.value = orderId;
-        document.body.appendChild(textArea);
-        textArea.focus();
-        textArea.select();
-        try {
-          document.execCommand('copy');
-          setCopied(true);
-          setTimeout(() => setCopied(false), 2000);
-        } catch (err) {
-          console.error('Fallback: Could not copy text: ', err);
-        }
-        document.body.removeChild(textArea);
-      }
-    }
-  };
+export default function ResultModal({ success,  onCloseAction }: ResultModalProps) {
+  // Removed: const [copied, setCopied] = useState(false);
+  // Removed: copyToClipboard function
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 p-4 overflow-y-auto">
@@ -51,29 +25,7 @@ export default function ResultModal({ success, orderId, onCloseAction }: ResultM
               <p className="text-gray-600 mt-2">
                 Your order has been received and will be processed shortly.
               </p>
-              
-              {orderId && (
-                <div className="mt-4 flex flex-col items-center">
-                  <p className="font-medium text-gray-800 mb-2">Order ID:</p>
-                  <div className="flex items-center gap-2 bg-gray-100 px-4 py-2 rounded-md">
-                    <span className="text-blue-600 font-mono">{orderId}</span>
-                    <button 
-                      onClick={copyToClipboard}
-                      className="p-1 hover:bg-gray-200 rounded"
-                      aria-label="Copy order ID"
-                    >
-                      {copied ? (
-                        <CheckCircle className="h-4 w-4 text-green-600" />
-                      ) : (
-                        <Copy className="h-4 w-4 text-gray-600" />
-                      )}
-                    </button>
-                  </div>
-                  {copied && (
-                    <p className="text-green-600 text-sm mt-1">Copied to clipboard!</p>
-                  )}
-                </div>
-              )}
+              {/* Order ID display and copy removed */}
             </div>
             
             <div className="mt-6">
