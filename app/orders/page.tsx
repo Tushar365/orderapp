@@ -2,8 +2,8 @@
 "use client";
 
 import { useState } from "react";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import Header from "@/components/Header/Header";
+import Footer from "@/components/Footer/Footer";
 import MedicineForm from "./components/MedicineForm";
 import CustomerForm from "@/app/orders/components/CustomerForm";
 import ConfirmationModal from "@/app/orders/components/ConfirmationModal";
