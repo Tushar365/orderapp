@@ -78,6 +78,9 @@ export async function POST(req: NextRequest) {
   }
 }
 
+// File: app/api/upload-prescription/route.ts
+// Authentication part only
+
 async function uploadToDrive(buffer: Buffer, filename: string, mimeType: string) {
   try {
     // Check if environment variables are set
@@ -86,16 +89,26 @@ async function uploadToDrive(buffer: Buffer, filename: string, mimeType: string)
       throw new Error('Missing Google API credentials');
     }
     
-    // Set up authentication with Google Drive
-    const auth = new google.auth.GoogleAuth({
-      credentials: {
-        client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
-        private_key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
-      },
-      scopes: ['https://www.googleapis.com/auth/drive'],
-    });
+    // Clean up the private key
+    let privateKey = process.env.GOOGLE_PRIVATE_KEY || '';
+    privateKey = privateKey.replace(/\\n/g, '\n');
     
-    const drive = google.drive({ version: 'v3', auth });
+    // Use JWT client with properly typed auth
+    const auth = new google.auth.JWT(
+      process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
+      undefined,
+      privateKey,
+      ['https://www.googleapis.com/auth/drive']
+    );
+
+    // Pre-authorize before using
+    await auth.authorize();
+    
+    // Create drive client with the JWT client
+    const drive = google.drive({ 
+      version: 'v3', 
+      auth
+    });
     
     // Log for debugging
     console.log('Attempting to upload file:', filename);
@@ -107,7 +120,7 @@ async function uploadToDrive(buffer: Buffer, filename: string, mimeType: string)
     readable.push(buffer);
     readable.push(null);
     
-    // FIX: Direct upload to the target folder
+    // Direct upload to the target folder
     const response = await drive.files.create({
       requestBody: {
         name: filename,
