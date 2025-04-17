@@ -16,7 +16,7 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 // Define available pincodes
-const pincodes = ["Dinhata", "Coochbehar", "Senet", "Bagdogra" , "Rampurhat" , "Paikar" , "Farakka" , "Raiganj","Dankuni","Gangarampur"];
+const pincodes = ["Dinhata", "Coochbehar","Chanchal", "Senet", "Bagdogra" , "Rampurhat" , "Paikar" , "Farakka" , "Raiganj","Dankuni","Gangarampur"];
 
 interface CustomerFormProps {
   formData: OrderFormData;
