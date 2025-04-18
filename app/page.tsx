@@ -17,10 +17,10 @@ export default function Home() {
           </p>
           
           <Link 
-            href="/orders" 
+            href="/order" 
             className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-6 px-12 rounded-lg text-2xl shadow-lg transition-all duration-200 transform hover:scale-105 inline-flex items-center"
           >
-            <span>Order Now</span>
+            <span>not taking orders contact here : 6289500338</span>
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
             </svg>
