@@ -14,6 +14,7 @@ import type {
   FunctionReference,
 } from "convex/server";
 import type * as orders from "../orders.js";
+import type * as productsearch from "../productsearch.js";
 
 /**
  * A utility for referencing Convex functions in your app's API.
@@ -25,6 +26,7 @@ import type * as orders from "../orders.js";
  */
 declare const fullApi: ApiFromModules<{
   orders: typeof orders;
+  productsearch: typeof productsearch;
 }>;
 export declare const api: FilterApi<
   typeof fullApi,

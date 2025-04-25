@@ -95,7 +95,7 @@ export default function HomePage() {
   ];
 
   return (
-    <div className="min-h-screen bg-blue-50/30">
+    <main className="min-h-screen bg-blue-50/30">
       <Header />
       
       {/* Replace the old Hero Section with the new HeroSlider */}
@@ -193,6 +193,6 @@ export default function HomePage() {
       <DiscountBanner />
       {/* Footer */}
       <Footer />
-    </div>
+    </main>
   );
 }

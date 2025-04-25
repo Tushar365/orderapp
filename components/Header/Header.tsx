@@ -5,19 +5,29 @@ import Search from './Search';
 
 export default function Header() {
   return (
-    <header className="w-full bg-white shadow-sm py-2 px-6">
-      <div className="max-w-6xl mx-auto flex justify-between items-center h-16">
-        <Link href="/" className="flex items-center space-x-2">
-          <Image
-            src="/logo.png"
-            alt="MedGhor Logo"
-            width={120}
-            height={25}
-            className="object-contain"
-          />
-        </Link>
-        <Search />
-        <Navbar />
+    <header className="w-full bg-white shadow-sm py-2 px-2 sm:px-6">
+      <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center sm:justify-between">
+        {/* Logo always at the top on mobile, left on desktop */}
+        <div className="w-full flex justify-center sm:justify-start sm:w-auto mb-2 sm:mb-0">
+          <Link href="/" className="flex items-center">
+            <Image
+              src="/logo.png"
+              alt="MedGhor Logo"
+              width={120}
+              height={25}
+              className="object-contain"
+              style={{ minWidth: 120, minHeight: 25 }}
+            />
+          </Link>
+        </div>
+        {/* Middle section: Search bar - increased width on desktop */}
+        <div className="w-full sm:flex-1 md:flex-grow-[2] flex justify-center px-0 sm:px-4 mb-2 sm:mb-0">
+          <Search />
+        </div>
+        {/* Navbar always on the right */}
+        <div className="w-full sm:w-auto flex justify-center sm:justify-end">
+          <Navbar />
+        </div>
       </div>
     </header>
   );

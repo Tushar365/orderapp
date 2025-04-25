@@ -1,6 +1,7 @@
 import Image from "next/image";
+import React from 'react'; // Import React
 
-export default function ProductCard({ product }: { product: { 
+const ProductCard = React.memo(({ product }: { product: { 
   id: number;
   name: string;
   price: number;
@@ -8,7 +9,7 @@ export default function ProductCard({ product }: { product: {
   image: string;
   sale: boolean;
   rating: number;
-} }) {
+} }) => { // Added => here
   return (
     <div className="bg-white rounded-lg shadow-sm p-4 transition-all hover:shadow-md">
       <div className="relative mb-3 bg-gray-50 rounded-lg p-4 flex justify-center">
@@ -30,7 +31,7 @@ export default function ProductCard({ product }: { product: {
         <div>
           <p className="text-blue-700 font-semibold">₹{product.price.toFixed(2)}</p>
           {product.originalPrice && (
-            <p className="text-gray-400 text-xs line-through">₹{product.originalPrice.toFixed(2)}</p>
+            <p className="text-gray-700 text-xs line-through">₹{product.originalPrice.toFixed(2)}</p>
           )}
         </div>
         {product.rating && (
@@ -42,4 +43,8 @@ export default function ProductCard({ product }: { product: {
       </div>
     </div>
   );
-}
+});
+
+ProductCard.displayName = 'ProductCard'; // Optional: Add display name for better debugging
+
+export default ProductCard;

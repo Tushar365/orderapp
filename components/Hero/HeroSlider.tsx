@@ -42,43 +42,41 @@ export default function HeroSlider() {
     <section
       className={`relative bg-gradient-to-r ${slides[current].bg} py-16 px-4 md:px-8 transition-all duration-500`}
     >
-      <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between">
-        <div className="mb-10 md:mb-0 md:w-1/2">
-          <div className="text-blue-400 font-semibold mb-2 tracking-wide">{slides[current].subtitle}</div>
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-blue-900 mb-6 leading-tight drop-shadow-sm">
-            {slides[current].title}
-          </h1>
-          <a href={slides[current].button.link}>
-            <button className="bg-blue-500 hover:bg-blue-600 text-white px-7 py-3 rounded-full font-semibold shadow-lg transition-all duration-200 mt-2 focus:outline-none focus:ring-2 focus:ring-blue-300">
-              {slides[current].button.text}
-            </button>
-          </a>
-        </div>
-        <div className="md:w-1/2 flex justify-center">
-          <div className="relative flex items-center justify-center h-[340px] w-[340px]">
-            {/* Soft gradient/blur background for blending */}
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <div className="w-80 h-80 bg-gradient-to-br from-blue-200/40 via-white/30 to-blue-400/30 blur-2xl rounded-full"></div>
-            </div>
-            <Image
-              src={slides[current].image}
-              alt={slides[current].title}
-              width={340}
-              height={340}
-              className="object-contain h-full w-full drop-shadow-xl z-10"
-              priority
-            />
+      {/* Make the entire slide area clickable */}
+      <a href={slides[current].button.link} className="block">
+        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between">
+          <div className="md:w-1/2 w-full">
+            <div className="text-blue-400 font-semibold mb-2 tracking-wide text-center md:text-left">{slides[current].subtitle}</div>
+            <h1 className="text-2xl xs:text-3xl md:text-4xl lg:text-5xl font-extrabold text-blue-900 mb-6 leading-tight drop-shadow-sm text-center md:text-left">
+              {slides[current].title}
+            </h1>
+            {/* Remove button, keep the spacing */}
+            <div className="h-12 md:h-16"></div>
           </div>
+          <div className="md:w-1/2 w-full flex justify-center">
+            <div className="relative flex items-center justify-center h-[220px] w-[220px] xs:h-[280px] xs:w-[280px] md:h-[340px] md:w-[340px]">
+              {/* Soft gradient/blur background for blending */}
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <div className="w-48 h-48 xs:w-72 xs:h-72 md:w-80 md:h-80 bg-gradient-to-br from-blue-200/40 via-white/30 to-blue-400/30 blur-2xl rounded-full"></div>
+              </div>
+              <Image
+                src={slides[current].image}
+                alt={slides[current].title}
+                width={340}
+                height={340}
+                className="object-contain h-full w-full drop-shadow-xl z-10"
+                priority
+              />
+            </div>
+          </div>
+          {/* Decorative subtle blue circles */}
+          <div className="absolute left-8 top-16 w-8 h-8 rounded-full bg-blue-100 opacity-40 blur-sm"></div>
+          <div className="absolute right-24 bottom-10 w-16 h-16 rounded-full bg-blue-200 opacity-30 blur"></div>
+          <div className="absolute left-1/4 bottom-8 w-4 h-4 bg-blue-300 rounded-full opacity-30 blur-sm"></div>
+          <div className="absolute right-1/4 top-20 w-4 h-4 bg-blue-400 rounded-full opacity-20 blur-sm"></div>
         </div>
-        {/* Decorative subtle blue circles */}
-        <div className="absolute left-8 top-16 w-8 h-8 rounded-full bg-blue-100 opacity-40 blur-sm"></div>
-        <div className="absolute right-24 bottom-10 w-16 h-16 rounded-full bg-blue-200 opacity-30 blur"></div>
-        <div className="absolute left-1/4 bottom-8 w-4 h-4 bg-blue-300 rounded-full opacity-30 blur-sm"></div>
-        <div className="absolute right-1/4 top-20 w-4 h-4 bg-blue-400 rounded-full opacity-20 blur-sm"></div>
-      </div>
-      {/* Slider Controls */}
-      {/* Removed prev/next buttons */}
-      {/* Dots */}
+      </a>
+      {/* Dots - outside the clickable area */}
       <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-2">
         {slides.map((_, idx) => (
           <button
