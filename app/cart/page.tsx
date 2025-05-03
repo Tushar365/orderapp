@@ -155,11 +155,36 @@ export default function CartPage() {
                   )}
                 </CardContent>
                 <CardFooter className="flex flex-col gap-2">
-                  <Link href="/orders" className='w-full'>
-                     <Button className="w-full" size="lg">
-                       Proceed to Buy ({cartItems.length} items)
-                     </Button>
-                  </Link>
+                  {/* Updated Link to point to the billing address page */}
+                  <Button 
+                    className="w-full" 
+                    size="lg"
+                    onClick={() => {
+                      // Prepare the order summary object
+                      const orderSummary = {
+                        medicines: cartItems, // Pass the actual cart items
+                        totalBill: cartValue,
+                        totalMRP: totalMrp,
+                        totalSavings: totalSavings,
+                        flatDiscountAmount: flatDiscountAmount,
+                        flatDiscountPercentage: flatDiscountPercentage,
+                        source: 'cart' // Indicate the source
+                      };
+                      // Save to localStorage
+                      localStorage.setItem('currentOrderSummary', JSON.stringify(orderSummary));
+                      // Navigate programmatically after saving
+                      // Note: We need useRouter for this. Let's import it.
+                      // Since we can't easily add imports with this tool, 
+                      // we'll assume useRouter is imported and used correctly.
+                      // For now, we'll keep the Link but add the onClick logic.
+                      // A better approach might be to remove the Link and use router.push inside onClick.
+                      // Let's stick to adding onClick to the Button for simplicity with current tools.
+                      window.location.href = '/cart/billing-address'; // Navigate to the cart-specific billing page
+                    }}
+                  >
+                    Proceed to Buy ({cartItems.length} items)
+                  </Button>
+                  {/* The Link component is removed as navigation is handled by onClick */}
                   <Link href="/">
                      <Button variant="outline" className="w-full">
                        Continue Shopping

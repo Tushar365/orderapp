@@ -21,8 +21,8 @@ export default function Search() {
       {/* Search Trigger Button */}
       <button
         onClick={openSearch}
-        className="flex items-center w-full px-4 py-2 md:py-3 bg-blue-50 text-gray-500 text-sm md:text-base rounded-full border border-blue-100 shadow hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-300"
-        aria-label="Open search"
+        className="flex items-center w-full px-4 py-2 md:py-3 bg-blue-50 text-gray-500 text-sm md:text-base rounded-full border border-blue-100 shadow hover:bg-blue-100 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-300"
+        // Removed aria-label="Open search" as visible text "Search products..." is sufficient
       >
         <svg
           className="w-5 h-5 md:w-6 md:h-6 mr-3"

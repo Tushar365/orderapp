@@ -37,22 +37,27 @@ export default function OrderPage() {
 
   // Effect to load order data from localStorage on initial mount (client-side only)
   useEffect(() => {
+    console.log('[QuickOrderPage] Component Mounting / useEffect [] run');
     if (typeof window !== 'undefined') {
       const savedOrder = localStorage.getItem('quickOrderData');
+      console.log('[QuickOrderPage] Read from localStorage:', savedOrder);
       if (savedOrder) {
         try {
           const parsedOrder = JSON.parse(savedOrder);
           // Basic validation to ensure it has a medicines array
           if (parsedOrder && Array.isArray(parsedOrder.medicines)) {
+            console.log('[QuickOrderPage] Setting state with loaded data:', parsedOrder);
             setOrderData(parsedOrder);
           } else {
-             console.warn("Invalid order data found in localStorage, resetting.");
+             console.warn("[QuickOrderPage] Invalid order data found in localStorage, resetting.");
              localStorage.removeItem('quickOrderData');
           }
         } catch (error) {
-          console.error("Error parsing quick order data from localStorage:", error);
+          console.error("[QuickOrderPage] Error parsing quick order data from localStorage:", error);
           localStorage.removeItem('quickOrderData'); // Clear invalid data
         }
+      } else {
+        console.log('[QuickOrderPage] No quickOrderData found in localStorage.');
       }
     }
   }, []); // Empty dependency array ensures this runs only once on mount
@@ -60,6 +65,7 @@ export default function OrderPage() {
   // Effect to save order data to localStorage whenever it changes
   useEffect(() => {
     if (typeof window !== 'undefined') {
+      console.log('[QuickOrderPage] Saving to localStorage:', orderData);
       localStorage.setItem('quickOrderData', JSON.stringify(orderData));
     }
   }, [orderData]); // Dependency array ensures this runs whenever orderData changes
@@ -146,11 +152,11 @@ export default function OrderPage() {
       source: 'quick-order' // Identify the source page
     };
     localStorage.setItem('currentOrderSummary', JSON.stringify(summaryData));
-    // Clear the quick order data after proceeding to billing
-    if (typeof window !== 'undefined') {
-        localStorage.removeItem('quickOrderData');
-    }
-    router.push('/quickorder/billing'); // Corrected path
+    // Keep the quick order data until the order is placed
+    // if (typeof window !== 'undefined') {
+    //     localStorage.removeItem('quickOrderData');
+    // }
+    router.push('/quickorder/billing-address'); // Navigate to billing address first
   };
 
   // Form validation
