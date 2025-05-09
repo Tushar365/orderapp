@@ -2,6 +2,16 @@ import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
 
 export default defineSchema({
+  users: defineTable({
+    name: v.string(),
+    email: v.string(),
+    pictureUrl: v.optional(v.string()),
+    subject: v.string(),
+    // Add session tracking fields
+    lastSessionStatus: v.optional(v.string()),
+    lastSessionId: v.optional(v.string()),
+    lastSessionUpdate: v.optional(v.float64()),
+  }).index("by_subject", ["subject"]),
   // Orders table with extended fields
   orders: defineTable({
     // Basic order info
