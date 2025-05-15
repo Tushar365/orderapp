@@ -22,6 +22,13 @@ interface OrderSummary {
   source: string;
 }
 
+/**
+ * Displays the billing and payment page for a quick order, allowing users to review their order summary, select a payment method, and place the order.
+ *
+ * Loads order summary and billing address data from localStorage, validates their presence and structure, and handles errors if data is missing or invalid. Supports only cash on delivery as a payment method. On checkout, submits the order to the backend API, handles success and error states, clears relevant localStorage data, and redirects to the home page upon successful order placement.
+ *
+ * @remark Card payment is currently not implemented and cannot be selected for checkout.
+ */
 export default function BillingPage() {
   const router = useRouter();
   const [orderSummary, setOrderSummary] = useState<OrderSummary | null>(null);

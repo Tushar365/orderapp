@@ -27,6 +27,13 @@ const slides = [
   },
 ];
 
+/**
+ * Displays an auto-advancing, clickable hero image slider with navigation dots.
+ *
+ * The slider cycles through predefined slides every 4 seconds, each featuring a title, subtitle, image, and a call-to-action link. Users can manually select slides using navigation dots. The current slide's background gradient and content update dynamically, and the entire slide area links to the slide's destination.
+ *
+ * @returns The rendered hero slider React component.
+ */
 export default function HeroSlider() {
   const [current, setCurrent] = useState(0);
 

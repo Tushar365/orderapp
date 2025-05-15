@@ -27,6 +27,13 @@ const calculateDiscountedPrice = (mrp: number | string | undefined | null, disco
   return Math.round((mrpNum - discountAmount) * 100) / 100; // Calculate and round to 2 decimal places
 };
 
+/**
+ * Displays a full-screen modal for searching products and adding them to the cart.
+ *
+ * Provides a debounced search input, displays matching products in a table with pricing and discount information, and allows users to specify quantities and add products to the cart. The modal can be closed with a button or by pressing the Escape key.
+ *
+ * @param onCloseAction - Callback invoked to close the search modal.
+ */
 export default function FullScreenSearch({ onCloseAction }: FullScreenSearchProps) { // Renamed prop
   const { addToCart } = useCart(); // Get addToCart function from context
   const [quantities, setQuantities] = useState<{ [key: string]: number }>({}); // State to hold quantities for each product

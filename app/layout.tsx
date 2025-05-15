@@ -25,6 +25,13 @@ export const metadata: Metadata = {
   },
 };
 
+/**
+ * Root layout component that sets up global HTML structure, fonts, metadata, context providers, and analytics for the application.
+ *
+ * Wraps all pages with authentication, backend client, cart state, and analytics providers, and injects Google Tag Manager and Analytics scripts.
+ *
+ * @param children - The content to be rendered within the layout.
+ */
 export default function RootLayout({
   children,
 }: Readonly<{
