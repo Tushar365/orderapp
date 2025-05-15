@@ -4,6 +4,11 @@ import { useState, useRef } from "react";
 
 // Import the FullScreenSearch component
 import FullScreenSearch from './FullScreenSearch';
+/**
+ * Renders a search trigger button that opens a fullscreen search modal.
+ *
+ * Displays a styled button with a search icon and text. When clicked, the button opens the {@link FullScreenSearch} modal, which can be closed via the provided callback.
+ */
 export default function Search() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null); // Keep ref for potential future use or remove if unused

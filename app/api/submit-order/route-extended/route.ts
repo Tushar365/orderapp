@@ -2,6 +2,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { submitOrderToConvex } from '../convex-order';
 
+/**
+ * Handles order submission via a POST API route, validating input, calculating charges, constructing order data, and submitting it to the backend.
+ *
+ * Validates required order fields, computes service charges for generic and branded medicines, and builds a comprehensive order object. Submits the order asynchronously and returns a JSON response with the order ID on success. Provides structured error responses on failure.
+ *
+ * @param req - The incoming HTTP request containing order data in JSON format.
+ * @returns A JSON response indicating success with the order ID, or an error message with details on failure.
+ */
 export async function POST(req: NextRequest) {
   try {
     const orderData = await req.json();

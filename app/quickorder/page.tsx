@@ -31,6 +31,16 @@ export type OrderData = {
   medicines: Medicine[];
 };
 
+/**
+ * Renders the quick order creation page for medicines, allowing users to add, remove, and review medicines in an order, view a dynamic order summary with discounts, and proceed to the billing address step.
+ *
+ * Loads and persists order data in localStorage, calculates totals and applicable branded discounts, and prepares the order summary for checkout navigation.
+ *
+ * @remark
+ * - Initializes order data from localStorage on mount and validates its structure.
+ * - Applies a flat discount to branded medicines: 2% if subtotal exceeds ₹499, 4% if over ₹1299.
+ * - Saves the current order summary to localStorage before navigating to the billing address page.
+ */
 export default function OrderPage() {
   const router = useRouter();
   const [orderData, setOrderData] = useState<OrderData>({ medicines: [] });

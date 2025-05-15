@@ -15,6 +15,11 @@ const brands = [
   // ...add more brands as needed
 ];
 
+/**
+ * Displays a horizontally scrolling carousel of featured brand logos with a seamless infinite loop effect.
+ *
+ * Renders a section containing a heading and a continuously animated row of brand cards, each showing a logo and brand name. The animation is achieved by duplicating the brand list and applying a horizontal sliding CSS animation.
+ */
 export default function FeaturedBrands() {
   // Duplicate the brands array to create a seamless loop
   const slidingBrands = [...brands, ...brands];

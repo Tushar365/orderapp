@@ -3,6 +3,11 @@ import Image from 'next/image';
 import Navbar from '@/components/Header/Navbar';
 import Search from './Search';
 
+/**
+ * Renders the responsive header section with a logo, search bar, and navigation bar.
+ *
+ * The header displays a logo linked to the homepage, a centrally positioned search bar, and a navigation bar. Layout and alignment adjust for different screen sizes to ensure optimal usability on both mobile and desktop devices.
+ */
 export default function Header() {
   return (
     <header className="w-full bg-white shadow-sm py-2 px-2 sm:px-6">

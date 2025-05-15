@@ -87,6 +87,14 @@ http.route({
   }),
 });
 
+/**
+ * Verifies and parses a Clerk webhook request using Svix signature headers.
+ *
+ * @param req - The incoming HTTP request containing the webhook payload and Svix signature headers.
+ * @returns The verified {@link WebhookEvent} object if validation succeeds; otherwise, null.
+ *
+ * @remark Returns null if the webhook secret is missing, the signature is invalid, or an error occurs during verification.
+ */
 async function validateRequest(req: Request): Promise<WebhookEvent | null> {
   try {
     const payloadString = await req.text();
