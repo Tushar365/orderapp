@@ -45,3 +45,8 @@ package-lock.json
 .vercel
 
 .env.local
+
+# Cursor IDE folder
+/.cursor
+
+# User uploaded files
