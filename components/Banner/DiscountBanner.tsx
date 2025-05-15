@@ -1,5 +1,10 @@
 import Image from "next/image";
 
+/**
+ * Renders a promotional banner highlighting a discount offer with styled visuals, descriptive text, and a call-to-action button.
+ *
+ * Displays a visually engaging section featuring a headline, description, and "Shop Now" button alongside a decorative image and background effects.
+ */
 export default function DiscountBanner() {
   return (
     <section className="py-12 px-6">

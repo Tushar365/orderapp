@@ -14,7 +14,11 @@ import { Authenticated, Unauthenticated } from "convex/react";
 import { SignInButton } from "@clerk/nextjs"; // Import SignInButton
 
 
-// Main Homepage Component
+/****
+ * Renders the main homepage, displaying a full-featured product and category interface for authenticated users and a sign-in prompt for unauthenticated users.
+ *
+ * For authenticated users, the page includes a hero slider, featured brands, multiple product sections, promotional banners, category cards, a discount banner, and navigation links. For unauthenticated users, a centered card with the logo, welcome message, feature list, and a sign-in button is shown.
+ */
 export default function HomePage() {
   const featuredProducts = [
     { 

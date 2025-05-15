@@ -3,7 +3,11 @@ import Link from "next/link";
 import { SignInButton, UserButton } from "@clerk/nextjs";
 import { Authenticated, Unauthenticated } from "convex/react";
 // import { useUser } from "@clerk/nextjs"; // Remove this line
-// import { useState } from "react";
+/**
+ * Renders a navigation bar with links to key pages and authentication controls.
+ *
+ * Displays navigation links for "Quick Order," "Cart," and "Orders," and conditionally shows sign-in or user account buttons based on authentication state.
+ */
 
 export default function Navbar() {
   // const { isSignedIn } = useUser(); // Remove this line

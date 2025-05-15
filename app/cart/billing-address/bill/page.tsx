@@ -34,6 +34,13 @@ type BillingAddress = {
   // paymentMethod might be part of this or selected here
 };
 
+/**
+ * Displays the cart billing and order confirmation page, allowing users to review their order, confirm billing details, select a payment method, and place the order.
+ *
+ * Loads order summary and billing address data from localStorage, validates their structure, and manages state for loading, errors, and order submission. On successful order placement, submits the order to the backend, shows a confirmation, clears the cart, and redirects to the homepage.
+ *
+ * @remark Only "Cash on Delivery" payment is currently supported; card payment is disabled and not implemented.
+ */
 export default function CartBillPage() {
   const router = useRouter();
   const [orderSummary, setOrderSummary] = useState<OrderSummary | null>(null);

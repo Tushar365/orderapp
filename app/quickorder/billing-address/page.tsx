@@ -36,6 +36,15 @@ type BillingAddress = {
   paymentMethod: 'COD' | 'Card' | ''; // Added payment method
 };
 
+/**
+ * React component for entering billing details and viewing an order summary before proceeding to payment.
+ *
+ * Displays a form for billing address input, optional prescription file upload, and a summary of the current order. Initializes and persists billing address data using localStorage, loads order summary from localStorage, and validates required fields before enabling payment progression. Navigates to the payment page upon successful submission.
+ *
+ * @returns The rendered billing address entry and order summary page.
+ *
+ * @remark The prescription file upload is optional and currently only stored in component state; uploading is not handled before navigation.
+ */
 export default function BillingPage() {
   const router = useRouter();
   // Initialize state with default values always for consistent server/client initial render

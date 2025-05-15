@@ -6,6 +6,13 @@ import { api } from '@/convex/_generated/api';
 import { useEffect, useState } from 'react';
 import { useUser } from '@clerk/nextjs';
 
+/**
+ * React hook that manages authentication state and user data synchronization using Convex and Clerk.
+ *
+ * Integrates Convex and Clerk authentication systems to provide unified loading and authentication status, fetches user data from Convex, and ensures user data is stored in the database when authenticated. Exposes authentication state, user information from both systems, error state, and helper functions for access and role checks.
+ *
+ * @returns An object containing authentication status, loading state, user data from Convex and Clerk, authentication error state, user storage status, and helper functions for admin and role checks.
+ */
 export function useAuth() {
   const { isLoading: convexLoading, isAuthenticated } = useConvexAuth();
   const { isLoaded: clerkLoaded, user: clerkUser } = useUser();

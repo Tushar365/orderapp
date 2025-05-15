@@ -9,7 +9,13 @@ import Footer from '@/components/Footer/Footer';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Trash2 } from 'lucide-react'; // Assuming you have lucide-react installed
+import { Trash2 } from 'lucide-react'; /**
+ * Renders the shopping cart page with itemized product listing, pricing details, discounts, and checkout options.
+ *
+ * Displays cart items in a table with per-item pricing, discount, and removal actions. Shows a summary card with total MRP, flat discounts for branded items, total savings, and the final payable amount. Provides navigation to continue shopping or proceed to checkout, persisting the order summary to local storage before navigating to the billing address page.
+ *
+ * @remark Applies an additional flat discount to branded items if their subtotal exceeds specific thresholds.
+ */
 
 export default function CartPage() {
   const { cartItems, removeFromCart } = useCart(); // Import removeFromCart

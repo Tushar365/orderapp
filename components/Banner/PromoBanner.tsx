@@ -10,6 +10,19 @@ interface PromoBannerProps {
   // bgColor removed
 }
 
+/**
+ * Renders a promotional banner with a title, description, link, and image.
+ *
+ * Displays the provided title and description, a styled link with a label and arrow icon, and an image positioned at the bottom right of the banner.
+ *
+ * @param title - The heading text for the banner.
+ * @param description - The descriptive text displayed below the title.
+ * @param link - The URL to navigate to when the link is clicked.
+ * @param linkLabel - The text label for the link.
+ * @param image - The source URL of the image displayed in the banner.
+ *
+ * @returns A styled JSX element representing the promotional banner.
+ */
 export default function PromoBanner({
   title,
   description,

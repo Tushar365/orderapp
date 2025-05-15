@@ -17,6 +17,17 @@ interface ProductSectionProps {
   children?: React.ReactNode;
 }
 
+/**
+ * Displays a section of product cards with a title, optional "See All Products" link, and customizable header content.
+ *
+ * Renders a responsive grid of products, each displayed using a {@link ProductCard}, with a styled section header. The header can include additional elements via {@link children} and conditionally shows a "See All Products" link based on {@link showSeeAll}.
+ *
+ * @param title - The section title displayed in the header.
+ * @param products - Array of product objects to display in the grid.
+ * @param showSeeAll - If true, displays a "See All Products" link in the header.
+ * @param seeAllLink - URL for the "See All Products" link.
+ * @param children - Optional elements rendered alongside the header and link.
+ */
 export default function ProductSection({
   title,
   products,

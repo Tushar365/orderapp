@@ -72,7 +72,14 @@ interface OrderData {
 }
 
 /**
- * Submit an order to Convex with all required fields
+ * Submits an order to the Convex backend, generating an order ID and date if not provided.
+ *
+ * Accepts an {@link OrderData} object, ensures required identifiers are set, and creates a new order record in Convex with customer, medicine, and billing details.
+ *
+ * @param orderData - The order information to be submitted.
+ * @returns An object containing `success: true` and the generated or provided `orderId`.
+ *
+ * @throws {Error} If the order submission to Convex fails.
  */
 export async function submitOrderToConvex(orderData: OrderData) {
   try {

@@ -18,6 +18,14 @@ interface MedicineListProps {
   onRemoveAction: (index: number) => void;
 }
 
+/**
+ * Displays a list of medicines in a table with details and a remove action for each item.
+ *
+ * Renders a message if no medicines are present. When medicines are provided, shows their details in a tabular format with columns for serial number, name, brand, MRP, discount, price, quantity, total, and an action button to remove a medicine from the list.
+ *
+ * @param medicines - The array of medicines to display.
+ * @param onRemoveAction - Callback invoked with the index of a medicine to remove it from the list.
+ */
 export default function MedicineList({ medicines, onRemoveAction }: MedicineListProps) {
   if (medicines.length === 0) {
     return (

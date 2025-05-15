@@ -26,6 +26,15 @@ const parseNumeric = (value: string | number | undefined | null): number => {
   return 0; // Default for undefined or null
 };
 
+/**
+ * React component for searching medicines and adding them to an order.
+ *
+ * Displays a debounced search input for medicines, shows matching product results, allows selection, quantity adjustment (1–50), and adds the selected medicine to an order via the provided callback. Resets input fields after addition.
+ *
+ * @param addMedicineAction - Callback invoked with the selected medicine (excluding serial number) and quantity when added to the order.
+ *
+ * @returns The rendered medicine search and add UI component.
+ */
 export default function MedicineSearch({ addMedicineAction }: MedicineSearchProps) {
   const [searchTerm, setSearchTerm] = useState("");
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");

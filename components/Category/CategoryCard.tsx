@@ -1,6 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 
+/**
+ * Renders a styled card displaying a category's image, name, and a link to its detail page.
+ *
+ * @param category - The category object containing id, name, slug, and image URL.
+ * @returns A React element representing the category card.
+ */
 export default function CategoryCard({ category }: { category: { 
   id: number;
   name: string;
