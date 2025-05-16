@@ -18,11 +18,26 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "MedGhor",
-  description: "Online Medicine Retail Store",
-  icons: {
-    icon: "/Home Remedy.png",
+  title: "MedGhor | Online Medicine Retail Store in India",
+  description: "MedGhor is your trusted online pharmacy offering medications, healthcare products and fast home delivery with verified authenticity at competitive prices.",
+  keywords: ["online pharmacy", "medicine delivery", "pharmacy India", "Bengal pharmacy", "healthcare products"],
+  openGraph: {
+    title: "MedGhor | Your Trusted Online Pharmacy",
+    description: "Order medicines online with verified authenticity and fast home delivery across India.",
+    siteName: "MedGhor",
+    locale: "en_IN",
+    type: "website",
   },
+  icons: {
+    icon: "/output-onlinepngtools (1).png",
+  },
+  alternates: {
+    languages: {
+      "en-IN": "/en",
+      "bn-IN": "/bn"
+    }
+  },
+  category: "healthcare"
 };
 
 /**

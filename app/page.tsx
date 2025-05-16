@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image"; // Import the Image component
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
 import HeroSlider from "@/components/Hero/HeroSlider";
@@ -12,6 +11,7 @@ import ProductSection from "@/components/Product/ProductSection";
 import FeaturedBrands from "@/components/Banner/FeaturedBrands";
 import { Authenticated, Unauthenticated } from "convex/react";
 import { SignInButton } from "@clerk/nextjs"; // Import SignInButton
+import AnimatedLogo from "@/components/Logo/AnimatedLogo";
 
 
 /****
@@ -212,38 +212,59 @@ export default function HomePage() {
       </Authenticated>
       <Unauthenticated>
         {/* Enhanced sign-in prompt with better visuals and CTA */}
-        <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-blue-50 to-white">
-          <div className="bg-white p-8 rounded-2xl shadow-lg max-w-md w-full mx-4">
+        <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-blue-50 to-white relative overflow-hidden">
+          {/* Decorative elements */}
+          <div className="absolute top-20 left-20 w-64 h-64 bg-blue-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-float"></div>
+          <div className="absolute bottom-20 right-20 w-72 h-72 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-60 animate-float" style={{animationDelay: '2s'}}></div>
+          <div className="absolute top-1/2 left-1/4 w-24 h-24 bg-blue-300 rounded-full mix-blend-multiply filter blur-xl opacity-40 animate-float" style={{animationDelay: '1s'}}></div>
+          
+          {/* Main content card with enhanced styling */}
+          <div className="bg-white p-10 rounded-3xl shadow-xl max-w-md w-full mx-4 relative z-10 border border-blue-50">
             <div className="text-center">
-              <Image 
-                src="/logo.png" 
-                alt="MedGhor Logo" 
-                width={64} // Set appropriate width
-                height={64} // Set appropriate height based on h-16 class
-                className="mx-auto mb-6" // Keep other classes, remove h-16 as height is set
-              />
-              <h1 className="text-3xl font-bold mb-2 text-gray-800">Welcome to MedGhor</h1>
+              {/* AnimatedLogo component */}
+              <AnimatedLogo />
+              
+              {/* Welcome text with enhanced styling */}
+              <h1 className="text-3xl font-bold mb-2 text-gray-800 bg-clip-text text-transparent bg-gradient-to-r from-blue-800 to-blue-600">Welcome to MedGhor</h1>
               <p className="text-gray-600 mb-8">Your trusted healthcare partner</p>
-              <div className="space-y-4">
-                <p className="text-sm text-gray-500">
-                  Sign in to access exclusive features:
-                </p>
-                <ul className="text-sm text-gray-600 space-y-2">
-                  <li className="flex items-center">
-                    <span className="mr-2">✓</span> Easy medicine ordering
-                  </li>
-                  <li className="flex items-center">
-                    <span className="mr-2">✓</span> Track your orders
-                  </li>
-                  <li className="flex items-center">
-                    <span className="mr-2">✓</span> Personalized recommendations
-                  </li>
-                </ul>
+              
+              {/* Feature highlights with improved visual styling */}
+              <div className="space-y-6">
+                <div className="bg-blue-50 rounded-xl p-4">
+                  <p className="text-sm font-medium text-blue-700 mb-3">
+                    Sign in to access exclusive features:
+                  </p>
+                  <ul className="text-sm text-gray-600 space-y-3">
+                    <li className="flex items-center">
+                      <span className="flex items-center justify-center mr-3 w-5 h-5 bg-blue-100 rounded-full text-blue-600">✓</span> 
+                      <span>Easy medicine ordering</span>
+                    </li>
+                    <li className="flex items-center">
+                      <span className="flex items-center justify-center mr-3 w-5 h-5 bg-blue-100 rounded-full text-blue-600">✓</span> 
+                      <span>Track your orders</span>
+                    </li>
+                    <li className="flex items-center">
+                      <span className="flex items-center justify-center mr-3 w-5 h-5 bg-blue-100 rounded-full text-blue-600">✓</span> 
+                      <span>Personalized recommendations</span>
+                    </li>
+                    <li className="flex items-center">
+                      <span className="flex items-center justify-center mr-3 w-5 h-5 bg-blue-100 rounded-full text-blue-600">✓</span> 
+                      <span>Exclusive discounts & offers</span>
+                    </li>
+                  </ul>
+                </div>
+                
+                {/* Enhanced sign-in button with animation */}
                 <SignInButton mode="modal">
-                  <button className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-colors">
+                  <button className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all duration-300 transform hover:scale-[1.02] shadow-md">
                     Sign In to Continue
                   </button>
                 </SignInButton>
+                
+                {/* Additional text */}
+                <p className="text-xs text-gray-500 mt-4">
+                  By signing in, you agree to our Terms of Service and Privacy Policy
+                </p>
               </div>
             </div>
           </div>

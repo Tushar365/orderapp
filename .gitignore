@@ -51,3 +51,6 @@ package-lock.json
 /.cursor
 
 # User uploaded files
+
+# clerk configuration (can include secrets)
+/.clerk/
