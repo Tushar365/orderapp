@@ -84,12 +84,12 @@ export default function HeroSlider() {
         </div>
       </a>
       {/* Dots - outside the clickable area */}
-      <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-2">
+      <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-4">
         {slides.map((_, idx) => (
           <button
             key={idx}
-            className={`w-3 h-3 rounded-full transition-all duration-200 border border-blue-300 ${
-              idx === current ? "bg-blue-500 scale-110 shadow" : "bg-blue-100"
+            className={`w-6 h-6 rounded-full transition-all duration-200 border border-blue-300 ${
+              idx === current ? "bg-blue-700 scale-110 shadow" : "bg-blue-100"
             }`}
             onClick={() => setCurrent(idx)}
             aria-label={`Go to slide ${idx + 1}`}
