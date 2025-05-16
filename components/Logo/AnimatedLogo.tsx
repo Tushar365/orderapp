@@ -5,8 +5,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 /**
- * Renders a minimal, elegant logo component with subtle animations.
- * Features clean design with centered positioning and gentle fade-in effect.
+ * Displays a centered logo with a fade-in animation and tagline.
+ *
+ * The logo image appears above a blurred circular shadow and gently scales up on hover. After a short delay, both the logo and the tagline "Your Trusted Healthcare Partner" fade in with smooth transitions.
  */
 export default function AnimatedLogo() {
   const [isVisible, setIsVisible] = useState(false);

@@ -15,9 +15,9 @@ import AnimatedLogo from "@/components/Logo/AnimatedLogo";
 
 
 /****
- * Renders the main homepage, displaying a full-featured product and category interface for authenticated users and a sign-in prompt for unauthenticated users.
+ * Displays the homepage with a full product and category interface for authenticated users, or a visually enhanced sign-in prompt for unauthenticated users.
  *
- * For authenticated users, the page includes a hero slider, featured brands, multiple product sections, promotional banners, category cards, a discount banner, and navigation links. For unauthenticated users, a centered card with the logo, welcome message, feature list, and a sign-in button is shown.
+ * Authenticated users see product sections, promotional banners, featured brands, categories, and navigation. Unauthenticated users are presented with a welcoming card, animated logo, feature highlights, and a sign-in call to action.
  */
 export default function HomePage() {
   const featuredProducts = [
